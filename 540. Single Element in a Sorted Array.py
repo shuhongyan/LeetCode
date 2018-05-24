@@ -23,3 +23,55 @@ class Solution:
                 return nums[i]
             i +=2
         return nums[i]#前面的都找不到就return最后一个元素
+
+#用递归二分法
+class Solution:
+    def singleNonDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if nums == []:
+            return None
+        if len(nums)==1:
+            return nums[0]
+        mid = int(len(nums)/2)
+        if mid%2==0:           
+            if nums[mid] == nums[mid-1]:
+                return self.singleNonDuplicate(nums[:mid-1])
+            if nums[mid] == nums[mid+1]:
+                return self.singleNonDuplicate(nums[mid+2:])
+        if mid%2!=0:  
+         
+            if nums[mid] == nums[mid+1]:
+                return self.singleNonDuplicate(nums[:mid])
+            if nums[mid] == nums[mid-1]:
+                return self.singleNonDuplicate(nums[mid+1:])
+        else:
+            return nums[mid]
+
+#迭代二分法
+class Solution:
+    def singleNonDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if nums == []:
+            return None
+        while len(nums) > 1:
+            mid = int(len(nums)/2)
+            if nums[mid] == nums[mid-1] or nums[mid] == nums[mid+1]:
+                if mid%2==0:           
+                    if nums[mid] == nums[mid-1]:
+                        nums = nums[:mid-1]
+                    else:
+                        nums = nums[mid+2:]
+                if mid%2!=0:     
+                    if nums[mid] == nums[mid+1]:
+                        nums = nums[:mid]
+                    else:
+                        nums = nums[mid+1:]
+            else:
+                return nums[mid]
+        return nums[0]
