@@ -29,3 +29,21 @@ class Solution:
             t.right = self.mergeTrees(t1.right,t2.right)
 
         return t
+#看了你的代码后发现自己是写重复了。。。原理是一样的，没必要像我先前那样if再来一下，迭代方程里有
+class Solution:
+    def mergeTrees(self, t1, t2):
+        """
+        :type t1: TreeNode
+        :type t2: TreeNode
+        :rtype: TreeNode
+        """
+        t = TreeNode(None)
+        if t1 is None:
+            return t2
+        if t2 is None:
+            return t1
+        t.val = t1.val+t2.val
+        t.left = self.mergeTrees(t1.left,t2.left)
+        t.right = self.mergeTrees(t1.right,t2.right)
+
+        return t
